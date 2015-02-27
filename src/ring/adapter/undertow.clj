@@ -42,11 +42,12 @@
      :content-length     (-> exchange .getRequestContentLength)
      :character-encoding (or (when ctype (Headers/extractTokenFromHeader ctype "charset"))
                              "ISO-8859-1")
-     :body               (.getInputStream exchange)}))
+     :body               (.getInputStream exchange)
+     :exchange exchange}))
 
 ;; Updating response
 
-(defn- set-headers
+(defn set-headers
   [^HeaderMap header-map headers]
   (reduce-kv
    (fn [^HeaderMap header-map ^String key val-or-vals]
